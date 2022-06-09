@@ -1,6 +1,5 @@
 package dataBase
 
-
 interface ContactsServiceInterface {
     fun addContact(person: Person, contact: Contact)
 

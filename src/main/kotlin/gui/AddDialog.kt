@@ -158,19 +158,17 @@ class AddDialog : JDialog(),
     }
 
 
-    fun haveAdded(phonebook : ContactService) : Boolean {
+    fun haveAdded(phonebook: ContactService): Boolean {
         var addedSuccess = false
-        if ((textFirstName.text == "") or (textLastName.text == "")){
+        if ((textFirstName.text == "") or (textLastName.text == "")) {
             val panel = JPanel()
             JOptionPane.showMessageDialog(panel, "Unable to create contact without first and last name!")
-        }
-        else {
+        } else {
             val person = Person(textFirstName.text, textLastName.text)
-            if(phonebook.getAllPeople().contains(person)) {
+            if (phonebook.getAllPeople().contains(person)) {
                 val panel = JPanel()
                 JOptionPane.showMessageDialog(panel, "There is someone named $person in the phonebook!")
-            }
-            else {
+            } else {
                 addedSuccess = true
 
                 phonebook.addPerson(person)
@@ -188,10 +186,16 @@ class AddDialog : JDialog(),
                     phonebook.addContact(person, Contact.Email(textOtherEmail.text))
                 }
                 if ((textDay.text != "") or (textMonth.text != "") or (textYear.text != "")) {
-                    phonebook.addContact(person, Contact.DateOfBirth(textDay.text.toInt(), textMonth.text.toInt(), textYear.text.toInt()))
+                    phonebook.addContact(
+                        person,
+                        Contact.DateOfBirth(textDay.text.toInt(), textMonth.text.toInt(), textYear.text.toInt())
+                    )
                 }
                 if ((textIndex.text != "") and (textCity.text != "") and (textStreet.text != "") and (textHouse.text != "")) {
-                    phonebook.addContact(person, Contact.Address(textIndex.text, textCity.text, textStreet.text, textHouse.text))
+                    phonebook.addContact(
+                        person,
+                        Contact.Address(textIndex.text, textCity.text, textStreet.text, textHouse.text)
+                    )
                 }
             }
         }

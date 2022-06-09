@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import javax.swing.*
 
-class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
+class EditDialog constructor(phonebook: ContactService, i: Int) : JDialog(),
     ActionListener {
     private val textFirstName = JTextPane()
     private val textLastName = JTextPane()
@@ -40,7 +40,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
     }
 
 
-    private fun buildFields(phonebook : ContactService) {
+    private fun buildFields(phonebook: ContactService) {
 
         val labelFirstName = JLabel("First name:")
         labelFirstName.horizontalAlignment = SwingConstants.LEFT
@@ -68,7 +68,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
         add(labelPhone)
         textPhone.bounds = Rectangle(100, 130, 320, 25)
         textPhone.border = BorderFactory.createEtchedBorder()
-        if(phonebook.getPersonPhones(person).isNotEmpty()){
+        if (phonebook.getPersonPhones(person).isNotEmpty()) {
             textPhone.text = phonebook.getPersonPhones(person)[0].toString()
         }
         add(textPhone)
@@ -79,7 +79,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
         add(labelOtherPhone)
         textOtherPhone.bounds = Rectangle(100, 160, 320, 25)
         textOtherPhone.border = BorderFactory.createEtchedBorder()
-        if(phonebook.getPersonPhones(person).size > 1){
+        if (phonebook.getPersonPhones(person).size > 1) {
             textOtherPhone.text = phonebook.getPersonPhones(person)[1].toString()
         }
         add(textOtherPhone)
@@ -91,7 +91,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
         add(labelEmail)
         textEmail.bounds = Rectangle(100, 190, 320, 25)
         textEmail.border = BorderFactory.createEtchedBorder()
-        if(phonebook.getPersonEmails(person).isNotEmpty()){
+        if (phonebook.getPersonEmails(person).isNotEmpty()) {
             textEmail.text = phonebook.getPersonEmails(person)[0].toString()
         }
         add(textEmail)
@@ -103,7 +103,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
         add(labelOtherEmail)
         textOtherEmail.bounds = Rectangle(100, 220, 320, 25)
         textOtherEmail.border = BorderFactory.createEtchedBorder()
-        if(phonebook.getPersonEmails(person).size > 1){
+        if (phonebook.getPersonEmails(person).size > 1) {
             textOtherEmail.text = phonebook.getPersonEmails(person)[1].toString()
         }
         add(textOtherEmail)
@@ -115,7 +115,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
         add(labelIndex)
         textIndex.bounds = Rectangle(100, 70, 110, 25)
         textIndex.border = BorderFactory.createEtchedBorder()
-        if(phonebook.getPersonAddress(person).isNotEmpty()){
+        if (phonebook.getPersonAddress(person).isNotEmpty()) {
             textIndex.text = phonebook.getPersonAddress(person)[0].index
         }
         add(textIndex)
@@ -126,7 +126,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
         add(labelCity)
         textCity.bounds = Rectangle(280, 70, 140, 25)
         textCity.border = BorderFactory.createEtchedBorder()
-        if(phonebook.getPersonAddress(person).isNotEmpty()){
+        if (phonebook.getPersonAddress(person).isNotEmpty()) {
             textCity.text = phonebook.getPersonAddress(person)[0].city
         }
         add(textCity)
@@ -137,7 +137,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
         add(labelStreet)
         textStreet.bounds = Rectangle(100, 100, 110, 25)
         textStreet.border = BorderFactory.createEtchedBorder()
-        if(phonebook.getPersonAddress(person).isNotEmpty()){
+        if (phonebook.getPersonAddress(person).isNotEmpty()) {
             textStreet.text = phonebook.getPersonAddress(person)[0].street
         }
         add(textStreet)
@@ -148,7 +148,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
         add(labelHouse)
         textHouse.bounds = Rectangle(280, 100, 140, 25)
         textHouse.border = BorderFactory.createEtchedBorder()
-        if(phonebook.getPersonAddress(person).isNotEmpty()){
+        if (phonebook.getPersonAddress(person).isNotEmpty()) {
             textHouse.text = phonebook.getPersonAddress(person)[0].house
         }
         add(textHouse)
@@ -164,7 +164,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
         textMonth.border = BorderFactory.createEtchedBorder()
         textYear.bounds = Rectangle(160, 40, 50, 25)
         textYear.border = BorderFactory.createEtchedBorder()
-        if(phonebook.getPersonDateOfBirth(person).isNotEmpty()){
+        if (phonebook.getPersonDateOfBirth(person).isNotEmpty()) {
             textDay.text = phonebook.getPersonDateOfBirth(person)[0].day.toString()
             textMonth.text = phonebook.getPersonDateOfBirth(person)[0].month.toString()
             textYear.text = phonebook.getPersonDateOfBirth(person)[0].year.toString()
@@ -198,7 +198,7 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
         const val SAVE = "SAVE"
     }
 
-    fun changeInfo(phonebook : ContactService, columnButton: MutableList<JButton>, i: Int) {
+    fun changeInfo(phonebook: ContactService, columnButton: MutableList<JButton>, i: Int) {
 
         if ((textFirstName.text != "" || textLastName.text != "") && (textFirstName.text != person.firstName || textLastName.text != person.lastName)) {
             val listOfContact = phonebook.getPersonContacts(person)
@@ -211,78 +211,67 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
             columnButton[i].text = textFirstName.text + " " + textLastName.text
         }
 
-        if(phonebook.getPersonDateOfBirth(person).isNotEmpty()) {
+        if (phonebook.getPersonDateOfBirth(person).isNotEmpty()) {
             phonebook.getPersonDateOfBirth(person)[0].day = textDay.text.toInt()
             phonebook.getPersonDateOfBirth(person)[0].month = textMonth.text.toInt()
             phonebook.getPersonDateOfBirth(person)[0].year = textYear.text.toInt()
-        }
-        else{
-            if(textDay.text != "" || textMonth.text != "" || textYear.text != ""){
-                val newBirthDay = Contact.DateOfBirth(textDay.text.toInt(), textMonth.text.toInt(), textYear.text.toInt())
+        } else {
+            if (textDay.text != "" || textMonth.text != "" || textYear.text != "") {
+                val newBirthDay =
+                    Contact.DateOfBirth(textDay.text.toInt(), textMonth.text.toInt(), textYear.text.toInt())
                 phonebook.addContact(person, newBirthDay)
             }
         }
 
-        if(phonebook.getPersonAddress(person).isNotEmpty()){
+        if (phonebook.getPersonAddress(person).isNotEmpty()) {
             phonebook.getPersonAddress(person)[0].index = textIndex.text
             phonebook.getPersonAddress(person)[0].city = textCity.text
             phonebook.getPersonAddress(person)[0].street = textStreet.text
             phonebook.getPersonAddress(person)[0].house = textHouse.text
-        }
-        else{
-            if(textIndex.text != "" || textCity.text != "" || textHouse.text != "" || textStreet.text != ""){
+        } else {
+            if (textIndex.text != "" || textCity.text != "" || textHouse.text != "" || textStreet.text != "") {
                 val newAddress = Contact.Address(textIndex.text, textCity.text, textStreet.text, textHouse.text)
                 phonebook.addContact(person, newAddress)
             }
         }
 
-        if(phonebook.getPersonPhones(person).isNotEmpty()){
-            if(phonebook.getPersonPhones(person).size == 1){
-                if(textPhone.text == "" && textOtherPhone.text == ""){
+        if (phonebook.getPersonPhones(person).isNotEmpty()) {
+            if (phonebook.getPersonPhones(person).size == 1) {
+                if (textPhone.text == "" && textOtherPhone.text == "") {
                     phonebook.removeContact(person, phonebook.getPersonPhones(person)[0])
-                }
-                else if (textPhone.text != "" && textOtherPhone.text != ""){
+                } else if (textPhone.text != "" && textOtherPhone.text != "") {
                     phonebook.getPersonPhones(person)[0].number = textPhone.text
                     val newPhone = Contact.Phone(textOtherPhone.text)
                     phonebook.addContact(person, newPhone)
+                } else {
+                    if (textPhone.text != "") phonebook.getPersonPhones(person)[0].number = textPhone.text
+                    if (textOtherPhone.text != "") phonebook.getPersonPhones(person)[0].number = textOtherPhone.text
                 }
-                else{
-                    if(textPhone.text != "") phonebook.getPersonPhones(person)[0].number = textPhone.text
-                    if(textOtherPhone.text != "") phonebook.getPersonPhones(person)[0].number = textOtherPhone.text
-                }
-            }
-            else{
-                if(textPhone.text == ""){
+            } else {
+                if (textPhone.text == "") {
                     phonebook.removeContact(person, phonebook.getPersonPhones(person)[0])
-                }
-                else{
+                } else {
                     phonebook.getPersonPhones(person)[0].number = textPhone.text
                 }
 
-                if(textOtherPhone.text == ""){
-                    if(textPhone.text == ""){
+                if (textOtherPhone.text == "") {
+                    if (textPhone.text == "") {
                         phonebook.removeContact(person, phonebook.getPersonPhones(person)[0])
-                    }
-                    else phonebook.removeContact(person, phonebook.getPersonPhones(person)[1])
-                }
-                else{
-                    if(textPhone.text == ""){
+                    } else phonebook.removeContact(person, phonebook.getPersonPhones(person)[1])
+                } else {
+                    if (textPhone.text == "") {
                         phonebook.getPersonPhones(person)[0].number = textOtherPhone.text
-                    }
-                    else phonebook.getPersonPhones(person)[1].number = textOtherPhone.text
+                    } else phonebook.getPersonPhones(person)[1].number = textOtherPhone.text
                 }
             }
-        }
-        else{
-            if(textPhone.text != "" || textOtherPhone.text == ""){
+        } else {
+            if (textPhone.text != "" || textOtherPhone.text == "") {
                 val newPhone = Contact.Phone(textPhone.text)
                 phonebook.addContact(person, newPhone)
-            }
-            else if (textPhone.text == "" || textOtherPhone.text != ""){
+            } else if (textPhone.text == "" || textOtherPhone.text != "") {
                 val newPhone = Contact.Phone(textOtherPhone.text)
                 phonebook.addContact(person, newPhone)
-            }
-            else if (textPhone.text != "" || textOtherPhone.text != ""){
+            } else if (textPhone.text != "" || textOtherPhone.text != "") {
                 val newPhone1 = Contact.Phone(textPhone.text)
                 val newPhone2 = Contact.Phone(textOtherPhone.text)
                 phonebook.addContact(person, newPhone1)
@@ -290,47 +279,39 @@ class EditDialog constructor(phonebook : ContactService,i: Int) : JDialog(),
             }
         }
 
-        if(phonebook.getPersonEmails(person).isNotEmpty()){
-            if(phonebook.getPersonEmails(person).size == 1){
-                if(textEmail.text == "" && textOtherEmail.text == ""){
+        if (phonebook.getPersonEmails(person).isNotEmpty()) {
+            if (phonebook.getPersonEmails(person).size == 1) {
+                if (textEmail.text == "" && textOtherEmail.text == "") {
                     phonebook.removeContact(person, phonebook.getPersonEmails(person)[0])
-                }
-                else if (textEmail.text != "" && textOtherEmail.text != ""){
+                } else if (textEmail.text != "" && textOtherEmail.text != "") {
                     phonebook.getPersonEmails(person)[0].email = textEmail.text
                     val newEmail = Contact.Email(textOtherEmail.text)
                     phonebook.addContact(person, newEmail)
+                } else {
+                    if (textEmail.text != "") phonebook.getPersonEmails(person)[0].email = textEmail.text
+                    if (textOtherEmail.text != "") phonebook.getPersonEmails(person)[0].email = textOtherEmail.text
                 }
-                else{
-                    if(textEmail.text != "") phonebook.getPersonEmails(person)[0].email = textEmail.text
-                    if(textOtherEmail.text != "") phonebook.getPersonEmails(person)[0].email = textOtherEmail.text
-                }
-            }
-            else{
-                if(textEmail.text == ""){
+            } else {
+                if (textEmail.text == "") {
                     phonebook.removeContact(person, phonebook.getPersonEmails(person)[0])
-                }
-                else{
+                } else {
                     phonebook.getPersonEmails(person)[0].email = textEmail.text
                 }
 
-                if(textOtherEmail.text == ""){
+                if (textOtherEmail.text == "") {
                     phonebook.removeContact(person, phonebook.getPersonEmails(person)[1])
-                }
-                else{
+                } else {
                     phonebook.getPersonEmails(person)[1].email = textOtherEmail.text
                 }
             }
-        }
-        else{
-            if(textEmail.text != "" || textOtherEmail.text == ""){
+        } else {
+            if (textEmail.text != "" || textOtherEmail.text == "") {
                 val newEmail = Contact.Email(textEmail.text)
                 phonebook.addContact(person, newEmail)
-            }
-            else if (textEmail.text == "" || textOtherEmail.text != ""){
+            } else if (textEmail.text == "" || textOtherEmail.text != "") {
                 val newEmail = Contact.Email(textOtherEmail.text)
                 phonebook.addContact(person, newEmail)
-            }
-            else if (textEmail.text != "" || textOtherEmail.text != ""){
+            } else if (textEmail.text != "" || textOtherEmail.text != "") {
                 val newEmail1 = Contact.Email(textEmail.text)
                 val newEmail2 = Contact.Email(textOtherEmail.text)
                 phonebook.addContact(person, newEmail1)

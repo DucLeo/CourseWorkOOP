@@ -7,7 +7,7 @@ import java.awt.Component
 import java.awt.Dimension
 import javax.swing.*
 
-class MainJFrame constructor(phonebook : ContactService) : JFrame("Phonebook") {
+class MainJFrame constructor(phonebook: ContactService) : JFrame("Phonebook") {
     private val panel = JPanel()
 
     private val columnButton = mutableListOf<JButton>()
@@ -16,15 +16,15 @@ class MainJFrame constructor(phonebook : ContactService) : JFrame("Phonebook") {
         buildMainFJame(phonebook)
     }
 
-    private fun createButtonAdd(phonebook : ContactService): Component {
+    private fun createButtonAdd(phonebook: ContactService): Component {
         var listPeople: List<Person>
         val panelButtonAdd = JPanel(BorderLayout(30, 450))
-        val buttonAdd = JButton("+ADD")
+        val buttonAdd = JButton("ADD")
         buttonAdd.horizontalAlignment = SwingConstants.RIGHT
         buttonAdd.addActionListener {
             val addDialog = AddDialog()
             if (addDialog.isSave) {
-                if(addDialog.haveAdded(phonebook)){
+                if (addDialog.haveAdded(phonebook)) {
                     listPeople = phonebook.getAllPeople()
                     val currentIndex = listPeople.size
                     val newButton = JButton(listPeople[currentIndex - 1].toString())
@@ -32,7 +32,7 @@ class MainJFrame constructor(phonebook : ContactService) : JFrame("Phonebook") {
                     columnButton.add(newButton)
                     newButton.maximumSize = Dimension(450, 30)
                     newButton.addActionListener {
-                        val informationDialog = InformationDialog(phonebook, columnButton,currentIndex - 1)
+                        val informationDialog = InformationDialog(phonebook, columnButton, currentIndex - 1)
                         informationDialog.revalidate()
                         informationDialog.repaint()
                         panel.revalidate()
@@ -50,7 +50,7 @@ class MainJFrame constructor(phonebook : ContactService) : JFrame("Phonebook") {
         return panelButtonAdd
     }
 
-    private fun panelContacts(phonebook : ContactService): Component {
+    private fun panelContacts(phonebook: ContactService): Component {
 
         val listPeople = phonebook.getAllPeople()
 
@@ -60,7 +60,7 @@ class MainJFrame constructor(phonebook : ContactService) : JFrame("Phonebook") {
             columnButton.add(buttonPanelContact)
             columnButton[i].maximumSize = Dimension(450, 30)
             columnButton[i].addActionListener {
-                InformationDialog(phonebook, columnButton,i)
+                InformationDialog(phonebook, columnButton, i)
             }
             panel.add(columnButton[i])
         }
@@ -68,10 +68,10 @@ class MainJFrame constructor(phonebook : ContactService) : JFrame("Phonebook") {
         return panel
     }
 
-    private fun buildMainFJame(phonebook : ContactService){
+    private fun buildMainFJame(phonebook: ContactService) {
         frameInit()
         panel.layout = BoxLayout(panel, BoxLayout.Y_AXIS)
-        setSize(450, phonebook.getAllPeople().size*30+60)
+        setSize(450, phonebook.getAllPeople().size * 30 + 60)
         defaultCloseOperation = EXIT_ON_CLOSE
         add(panelContacts(phonebook), BorderLayout.CENTER)
         panel.repaint()
